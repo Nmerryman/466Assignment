@@ -15,7 +15,6 @@ CREATE TABLE Requests (
   UserID INT,
   Time DATETIME,
   AmountPaid DECIMAL(10,2),
-  Played BIT,
   QueueType VARCHAR(255),
   FOREIGN KEY (SongID) REFERENCES Songs(SongID),
   FOREIGN KEY (UserID) REFERENCES Users(UserID)
