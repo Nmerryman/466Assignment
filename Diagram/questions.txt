@@ -1,5 +1,0 @@
-Do we want to split user into normal or dj?
-Do we want to introduce a dj queue?
-
-"The free queue should be sorted based on the time the user signed up; first in, first out. The accelerated queue should be able to be sorted in either time order
-or by the amount paid. Make sure to implement some mechanism to switch the sort order.": Do we want to split up request queue or just put more information in it?
