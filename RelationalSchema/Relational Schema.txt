@@ -1,6 +1,0 @@
-Users(UserID(PK)), Name)
-Songs(SongID(PK), Title, BandName)
-Requests(RequestID(PK), SongID(PK), UserID(FK), Time, AmountPaid, Played, QueueType)
-SongVersions(VersionID(PK), SongID(FK), KaraokeFile)
-Contributors(ContributorID(PK), Name)
-SongContributors(SongID(FK), ContributorID(FK), Role(PK))
