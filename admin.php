@@ -15,45 +15,25 @@
 <script>
     function rebuild() {
         var xhttp = new XMLHttpRequest;
-        xhttp.open("GET", "admin.php?do=rebuild");
-        xhttp.send();
-        while (xhttp.readyState != 4) {
-            document.getElementById("text").innerText = "Working";
+        xhttp.open("GET", "executor.php?rebuild=true");
+        document.getElementById("text").innerText = "Working";
+        xhttp.onload = function() {
+            document.getElementById("text").innerText = "Done";
         }
-        document.getElementById("text").innerText = "Done";
+        xhttp.send();
     }
 
-    function rebuild() {
+    function clear() {
         var xhttp = new XMLHttpRequest;
-        xhttp.open("GET", "admin.php?do=clear");
-        xhttp.send();
-        while (xhttp.readyState != 4) {
-            document.getElementById("text").innerText = "Working";
+        xhttp.open("GET", "executor.php?clear=true");
+        document.getElementById("text").innerText = "Working";
+        xhttp.onload = function() {
+            document.getElementById("text").innerText = "Done";
         }
-        document.getElementById("text").innerText = "Done";
+        xhttp.send();
         
     }
 
 </script>
-<?php
-if (isset($_GET["do"])){
-    include("helpers.php");
-    if ($_GET["do"] == "rebuild") {
-        try {
-            $file = file_get_contents("SQL Create Table Script.sql");
-            $pdo->exec($file);
-        } catch (Exception $e) {
-            echo "<h1>$e</h1>";
-        }
-    } else if ($_GET["do"] == "clear") {
-        try {
-            $file = file_get_contents(".sql");
-            $pdo->exec($file);
-        } catch (Exception $e) {
-            echo "<h1>$e</h1>";
-        }
-    }
-}
-?>
 </body>
 </html>
