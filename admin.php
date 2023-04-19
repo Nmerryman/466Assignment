@@ -18,7 +18,7 @@
         xhttp.open("GET", "executor.php?rebuild=true");
         document.getElementById("text").innerText = "Working";
         xhttp.onload = function() {
-            document.getElementById("text").innerText = "Done";
+            document.getElementById("text").innerHTML = xhttp.responseXML;
         }
         xhttp.send();
     }
@@ -28,7 +28,7 @@
         xhttp.open("GET", "executor.php?clear=true");
         document.getElementById("text").innerText = "Working";
         xhttp.onload = function() {
-            document.getElementById("text").innerText = "Done";
+            document.getElementById("text").innerText = xhttp.responseXML;
         }
         xhttp.send();
         
