@@ -121,10 +121,10 @@
 </head>
 <body>
         <div class="container">
-                <a class="button" href="user.php">I'm a user</a>
-                <a class="button" href="dj.php">I'm a dj</a>
+                <a class="button" href="Site/user.php">I'm a user</a>
+                <a class="button" href="Site/dj.php">I'm a dj</a>
                 <br>
-                <a class="button" href="admin.php">I'm an admin</a>
+                <a class="button" href="Site/admin.php">I'm an admin</a>
                 <button class="button dark" onclick="toggleDarkMode()">Dark Mode</button>
         </div>
 

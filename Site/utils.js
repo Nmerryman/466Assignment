@@ -8,7 +8,3 @@ function fetcher(call_name, target_id) {
     }
     xhttp.send();
 }
-
-// export {
-//     fetcher
-// }
