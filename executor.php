@@ -2,7 +2,7 @@
 include("helpers.php");
 if (isset($_GET["rebuild"])){
     try {
-        $file = file_get_contents("SQL Create Table Script.sql");
+        $file = file_get_contents("SQL Scripts/SQL Create Table Script.sql");
         $pdo->exec($file);
         echo "<h2>Done!</h2>";
     } catch (Exception $e) {
@@ -10,7 +10,7 @@ if (isset($_GET["rebuild"])){
     }
 } else if (isset($_GET["clear"])) {
     try {
-        $statement = $pdo->prepare("Delete from * from Requests");
+        $statement = $pdo->prepare("Delete from Requests");
         $statement->execute();
         echo "<h2>Cleared!</h2>";
     } catch (Exception $e) {

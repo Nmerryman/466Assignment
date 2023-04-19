@@ -13,30 +13,16 @@
     </form>
     <span id="text"></span>
 
-<script>
-    function rebuild() {
-        var xhttp = new XMLHttpRequest;
-        xhttp.open("GET", "executor.php?rebuild=true");
-        document.getElementById("text").innerText = "Working";
-        xhttp.onload = function() {
-            document.getElementById("text").innerHTML = xhttp.responseText;
-            console.log(xhttp.responseText);
+    <script src="utils.js"></script>
+    <script>
+        function rebuild() {
+            fetcher("rebuild", "text");
         }
-        xhttp.send();
-    }
-
-    function clearing() {
-        var xhttp = new XMLHttpRequest;
-        xhttp.open("GET", "executor.php?clear=true");
-        document.getElementById("text").innerText = "Working";
-        xhttp.onload = function() {
-            document.getElementById("text").innerHTML = xhttp.responseText;
-            console.log(xhttp.responseText);
+    
+        function clearing() {
+            fetcher("clear", "text");
+            
         }
-        xhttp.send();
-        // console.log("clearing");
-        
-    }
-</script>
+    </script>
 </body>
 </html>
