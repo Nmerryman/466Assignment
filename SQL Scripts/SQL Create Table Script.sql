@@ -1,36 +1,36 @@
 CREATE TABLE Users (
-  UserID INT PRIMARY KEY,
+  UserID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255)
 );
 
 CREATE TABLE Songs (
-  SongID INT PRIMARY KEY,
+  SongID INT PRIMARY KEY AUTO_INCREMENT,
   Title VARCHAR(255),
   BandName VARCHAR(255)
 );
 
 CREATE TABLE Requests (
-  RequestID INT PRIMARY KEY,
+  RequestID INT PRIMARY KEY AUTO_INCREMENT,
   SongID INT,
   UserID INT,
   Time DATETIME,
   AmountPaid DECIMAL(10,2),
   QueueType VARCHAR(255),
-  Index INT,
+  RequestIndex INT,
   FOREIGN KEY (SongID) REFERENCES Songs(SongID),
   FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 
 CREATE TABLE SongVersions (
-  VersionID INT PRIMARY KEY,
+  VersionID INT PRIMARY KEY AUTO_INCREMENT,
   SongID INT,
   KaraokeFile VARCHAR(255),
-  Description VARCHAR(65536)
+  Description TEXT,
   FOREIGN KEY (SongID) REFERENCES Songs(SongID)
 );
 
 CREATE TABLE Contributors (
-  ContributorID INT PRIMARY KEY,
+  ContributorID INT PRIMARY KEY AUTO_INCREMENT,
   Name VARCHAR(255)
 );
 
