@@ -11,7 +11,7 @@ if (isset($_GET["rebuild"])){
 } else if (isset($_GET["clear"])) {
     try {
         $statement = $pdo->prepare("Delete from * from Requests");
-        $pdo->exec($file);
+        $statement->execute();
         echo "<h2>Cleared!</h2>";
     } catch (Exception $e) {
         echo "<h1>$e</h1>";

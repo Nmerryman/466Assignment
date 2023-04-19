@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
 	<title> Hi </title>
@@ -8,7 +9,7 @@
         <label for="Struct">Rebuild structure</label>
         <input type="button" name="Struct" onclick="rebuild()" value="do">
         <label for="Clear">Clear queue info</label>
-        <input type="button" name="Clear" onclick="clear()" value="do">
+        <input type="button" name="Clear" onclick="clearing()" value="do">
     </form>
     <span id="text"></span>
 
@@ -18,22 +19,24 @@
         xhttp.open("GET", "executor.php?rebuild=true");
         document.getElementById("text").innerText = "Working";
         xhttp.onload = function() {
-            document.getElementById("text").innerHTML = xhttp.responseXML;
+            document.getElementById("text").innerHTML = xhttp.responseText;
+            console.log(xhttp.responseText);
         }
         xhttp.send();
     }
 
-    function clear() {
+    function clearing() {
         var xhttp = new XMLHttpRequest;
         xhttp.open("GET", "executor.php?clear=true");
         document.getElementById("text").innerText = "Working";
         xhttp.onload = function() {
-            document.getElementById("text").innerText = xhttp.responseXML;
+            document.getElementById("text").innerHTML = xhttp.responseText;
+            console.log(xhttp.responseText);
         }
         xhttp.send();
+        // console.log("clearing");
         
     }
-
 </script>
 </body>
 </html>
