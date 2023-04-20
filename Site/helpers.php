@@ -14,4 +14,23 @@ try {
 } catch (PDOException $e) {
     die("        <p>Connection to database failed: ${$e->getMessage()}</p>\n");
 }
+
+function print_table($arr) {
+
+    echo "<table><tr>";
+    foreach(array_keys($arr[0]) as $headings) {
+        echo "<td><strong>$headings</strong></td>";
+    }
+    echo "</tr>";
+    
+    foreach($arr as $row) {
+        echo "<tr>";
+        foreach($row as $col) {
+            echo "<td>$col</td>";
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+
+}
 ?>
