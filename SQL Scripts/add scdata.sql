@@ -1,13 +1,3 @@
-CREATE TABLE SongContributors (
-  SongID INT,
-  ContributorID INT,
-  Role VARCHAR(255),
-  PRIMARY KEY (SongID, ContributorID),
-  FOREIGN KEY (SongID) REFERENCES Songs(SongID),
-  FOREIGN KEY (ContributorID) REFERENCES Contributors(ContributorID)
-);
-
-
 INSERT INTO SongContributors (SongID, ContributorID, Role) VALUES 
 (1, 1, 'Performer and Songwriter'), 
 (2, 2, 'Performer and Songwriter'), (2, 3, 'Performer'), (2, 4, 'Producer'),
