@@ -8,6 +8,8 @@
     <form>
         <label for="Struct">Rebuild structure</label>
         <input type="button" name="Struct" onclick="rebuild()" value="do">
+        <label for="Info">Insert Songs</label>
+        <input type="button" name="Info" onclick="insert_songs()" value="do">
         <label for="Clear">Clear queue info</label>
         <input type="button" name="Clear" onclick="clearing()" value="do">
     </form>
@@ -22,6 +24,10 @@
         function clearing() {
             fetcher("clear", "text");
             
+        }
+
+        function insert_songs() {
+            fetcher("insert_song_info", "text")
         }
     </script>
 </body>
