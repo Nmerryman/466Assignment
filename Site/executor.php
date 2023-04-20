@@ -10,7 +10,7 @@ if (isset($_GET["rebuild"])){
     }
 } else if (isset($_GET["clear"])) {
     try {
-        $statement = $pdo->prepare("Delete from Requests");
+        $statement = $pdo->prepare("Delete from RequestQueue");
         $statement->execute();
         echo "<h2>Cleared!</h2>";
     } catch (Exception $e) {
