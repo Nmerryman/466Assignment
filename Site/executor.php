@@ -8,6 +8,7 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+
 } else if (isset($_GET["clear"])) {
     try {
         $statement = $pdo->prepare("Delete from RequestQueue");
@@ -16,6 +17,7 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+
 } else if (isset($_GET["insert_song_info"])) {
     try {
         $file = file_get_contents("../SQL Scripts/Add Data.sql");
@@ -26,7 +28,8 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-}else if (isset($_GET["basic_query"])) {
+    
+} else if (isset($_GET["basic_query"])) {
     try {
         $statement = $pdo->prepare("SELECT s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
         FROM Songs s
@@ -35,7 +38,6 @@ if (isset($_GET["rebuild"])){
         GROUP BY s.SongID;");
         $statement->execute();
         print_table($statement->fetchAll());
-        // echo "<h2>Done!</h2>";
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
