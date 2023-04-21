@@ -44,14 +44,19 @@ if (isset($_GET["rebuild"])){
 } else if (isset($_GET["user_query_name"])) {
     $name = $_GET["arg"];
     try {
-        $statement = $pdo->prepare("SELECT s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
+        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
         FROM Songs s
         JOIN SongContributors sc ON s.SongID = sc.SongID
         JOIN Contributors c ON sc.ContributorID = c.ContributorID
         WHERE SOUNDEX(s.Title) = SOUNDEX(\"$name\") or SOUNDEX(s.BANDName) = SOUNDEX(\"$name\") or LOWER(c.Name) like \"%$name%\"
         GROUP BY s.SongID;");
         $statement->execute();
-        print_table($statement->fetchAll());
+        $values = $statement->fetchAll();
+        if (!empty($values)) {
+            print_table($values);
+        } else {
+            echo "<h3>No results for $name found.<h3>";
+        }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
