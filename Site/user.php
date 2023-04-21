@@ -5,7 +5,7 @@
 <body>
     <h5>Welcome User!</h5>
     <label for="query_text">Query</label>
-    <input name="query_text" id=input_text>
+    <input name="query_text" id="input_text">
     <input type="button" value="Run" onclick="user_query()">
     <br>
     <span id="text"></span>
@@ -22,6 +22,14 @@
                 fetcher("basic_query", "text");
             }
         }
+
+        input_area = document.getElementById("input_text").addEventListener(
+            "keypress", function (e) {
+                if (e.key === "Enter") {
+                    user_query();
+                }
+            }
+        );
     </script>
 </body>
 </html>

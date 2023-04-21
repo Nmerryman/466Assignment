@@ -42,7 +42,6 @@ if (isset($_GET["rebuild"])){
         echo "<h1>$e</h1>";
     }
 } else if (isset($_GET["user_query_name"])) {
-    print_r($_GET);
     $name = $_GET["arg"];
     try {
         $statement = $pdo->prepare("SELECT s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
