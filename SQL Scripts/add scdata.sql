@@ -29,3 +29,6 @@ INSERT INTO SongContributors (SongID, ContributorID, Role) VALUES
 (28, 63, 'Performer and Songwriter'), (28, 57, 'Songwriter and Producer'), (28, 64, 'Performer and Producer'),
 (29, 63, 'Performer and Songwriter'), (29, 65, 'Performer and Songwriter'), (29, 57, 'Producer'),
 (30, 66, 'Performers and Songwriters'), (30, 67, 'Producer');
+
+-- TODO probably remove these later
+INSERT INTO Users (Name) VALUES ("User 1"), ("test user 2");

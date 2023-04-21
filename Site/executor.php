@@ -42,7 +42,7 @@ if (isset($_GET["rebuild"])){
         echo "<h1>$e</h1>";
     }
 } else if (isset($_GET["user_query_name"])) {
-    $name = $_GET["arg"];
+    $name = $_GET["arg0"];
     try {
         $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
         FROM Songs s
@@ -57,6 +57,24 @@ if (isset($_GET["rebuild"])){
         } else {
             echo "<h3>No results for $name found.<h3>";
         }
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["user_send_queue"])) {
+    $song_id = $_GET["arg0"];
+    $val = $_GET["arg1"];
+    $username = $_GET["arg2"];
+    $time = date('Y-m-d H:i:s');
+    if ($val == "") {
+        $queue_type = "free";
+    } else {
+        $queue_type = "priority";
+    }
+    try {
+        $statement = $pdo->prepare("INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
+        $statement->execute([$song_id, $username, $time, $val, $queue_type]);
+        $values = $statement->fetchAll();
+        echo "<p>Sent to queue</p>";
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
