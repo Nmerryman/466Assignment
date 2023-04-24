@@ -65,7 +65,10 @@ if (isset($_GET["rebuild"])){
     $val = $_GET["arg1"];
     $username = $_GET["arg2"];
     $time = date('Y-m-d H:i:s');
-    if ($val == "") {
+    // echo "aoeu";
+    // echo $val;
+    // echo "aoeu";
+    if ($val == "0") {
         $queue_type = "free";
     } else {
         $queue_type = "priority";
@@ -82,7 +85,7 @@ if (isset($_GET["rebuild"])){
     echo "<h2>text</h2><script>alert(1);</script>";
 } else if (isset($_GET["free_queue"])) {
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"free\";");
@@ -92,6 +95,22 @@ if (isset($_GET["rebuild"])){
             print_table($values);
         } else {
             echo "<h3>No songs in the free queue.<h3>";
+        }
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["paid_queue"])) {
+    try {
+        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
+        JOIN Songs s on s.SongID = r.SongID
+        JOIN Users u on u.UserID = r.UserID
+        WHERE r.QueueType = \"priority\";");
+        $statement->execute();
+        $values = $statement->fetchAll();
+        if (!empty($values)) {
+            print_table($values);
+        } else {
+            echo "<h3>No songs in the priority queue.<h3>";
         }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
