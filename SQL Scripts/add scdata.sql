@@ -31,4 +31,4 @@ INSERT INTO SongContributors (SongID, ContributorID, Role) VALUES
 (30, 66, 'Performers and Songwriters'), (30, 67, 'Producer');
 
 -- TODO probably remove these later
-INSERT INTO Users (Name) VALUES ("User 1"), ("test user 2");
+INSERT INTO Users (Name) VALUES ("Axel"), ("Shelly"), ("aaaaaaaaaaa");
