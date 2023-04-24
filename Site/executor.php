@@ -1,6 +1,6 @@
 <?php
 include("helpers.php");
-if (isset($_GET["rebuild"])){
+if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     try {
         $file = file_get_contents("../SQL Scripts/SQL Create Table Script.sql");
         $pdo->exec($file);
@@ -9,7 +9,7 @@ if (isset($_GET["rebuild"])){
         echo "<h1>$e</h1>";
     }
 
-} else if (isset($_GET["clear"])) {
+} else if (isset($_GET["clear"])) {  // Clear all queue data
     try {
         $statement = $pdo->prepare("Delete from RequestQueue");
         $statement->execute();
@@ -18,7 +18,7 @@ if (isset($_GET["rebuild"])){
         echo "<h1>$e</h1>";
     }
 
-} else if (isset($_GET["insert_song_info"])) {
+} else if (isset($_GET["insert_song_info"])) {  // Load all session data
     try {
         $file = file_get_contents("../SQL Scripts/Add Data.sql");
         $pdo->exec($file);
@@ -29,7 +29,7 @@ if (isset($_GET["rebuild"])){
         echo "<h1>$e</h1>";
     }
 
-} else if (isset($_GET["basic_query"])) {
+} else if (isset($_GET["basic_query"])) {  // Print all songs in database
     try {
         $statement = $pdo->prepare("SELECT s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
         FROM Songs s
@@ -41,7 +41,7 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["user_query_name"])) {
+} else if (isset($_GET["user_query_name"])) {  // Search by a name of some sort
     $name = $_GET["arg0"];
     try {
         $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
@@ -60,7 +60,7 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["user_send_queue"])) {
+} else if (isset($_GET["user_send_queue"])) {  // Send a song to the request queue
     $song_id = $_GET["arg0"];
     $val = $_GET["arg1"];
     $username = $_GET["arg2"];
@@ -81,9 +81,9 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["alert"])) {
+} else if (isset($_GET["alert"])) {  // Javascript test execution
     echo "<h2>text</h2><script>alert(1);</script>";
-} else if (isset($_GET["free_queue"])) {
+} else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
         $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
@@ -99,7 +99,7 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["paid_queue"])) {
+} else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
         $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID

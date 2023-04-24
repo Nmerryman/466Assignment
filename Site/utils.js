@@ -1,6 +1,8 @@
 
+// "Opens" the page in the background and inserts html into main document node/tag/id
 function fetcher(call_name, target_id, argument=[]) {
     var xhttp = new XMLHttpRequest;
+    // Passes arguments where it makes sense
     var arg_mod = ""
     if (argument.length != 0) {
         for (a = 0; a < argument.length; a++){
@@ -8,9 +10,12 @@ function fetcher(call_name, target_id, argument=[]) {
         }
     }
     xhttp.open("GET", "executor.php?" + call_name + "=true" + arg_mod);
+    // Finds target element
     var target = document.getElementById(target_id);
     target.innerText = "Working";
+
     xhttp.onload = function() {
+        // Exchanges temorary text for loaded html
         target.innerText = "";
         var part = document.createElement("part");
         part.innerHTML = xhttp.responseText;

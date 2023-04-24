@@ -1,5 +1,5 @@
-<!-- Connect to database + setup -->
 <?php
+// Loads the database and creates the pdo object
 include("cred.php"); 
 $host = "courses";
 $dbname = "z1963771";
@@ -16,6 +16,7 @@ try {
 }
 
 function print_table($arr) {
+    // Turns a passed query into a html table
     // Assumes content is there
 
     echo "<table><tr>";
@@ -32,6 +33,5 @@ function print_table($arr) {
         echo "</tr>";
     }
     echo "</table>";
-
 }
 ?>
