@@ -4,9 +4,13 @@
 </head>
 <body>
     <h5>Welcome Dj!</h5>
-<?php
-$time = time();
-echo "<p>$time</p>";
-?>
+
+    <span id="free_queue_loc"></span>
+
+
+    <script src="utils.js"></script>
+    <script>
+        fetcher("free_queue", "free_queue_loc");
+    </script>
 </body>
 </html>

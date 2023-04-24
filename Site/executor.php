@@ -78,5 +78,23 @@ if (isset($_GET["rebuild"])){
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+} else if (isset($_GET["alert"])) {
+    echo "<h2>text</h2><script>alert(1);</script>";
+} else if (isset($_GET["free_queue"])) {
+    try {
+        $statement = $pdo->prepare("SELECT s.Title, u.Name FROM RequestQueue r
+        JOIN Songs s on s.SongID = r.SongID
+        JOIN Users u on u.UserID = r.UserID
+        WHERE r.QueueType = \"free\";");
+        $statement->execute();
+        $values = $statement->fetchAll();
+        if (!empty($values)) {
+            print_table($values);
+        } else {
+            echo "<h3>No songs in the free queue.<h3>";
+        }
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
 }
 ?>

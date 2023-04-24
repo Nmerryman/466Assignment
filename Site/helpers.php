@@ -16,6 +16,7 @@ try {
 }
 
 function print_table($arr) {
+    // Assumes content is there
 
     echo "<table><tr>";
     foreach(array_keys($arr[0]) as $headings) {
