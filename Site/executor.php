@@ -22,8 +22,6 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     try {
         $file = file_get_contents("../SQL Scripts/Add Data.sql");
         $pdo->exec($file);
-        $file = file_get_contents("../SQL Scripts/add scdata.sql");
-        $pdo->exec($file);
         echo "<h2>Done!</h2>";
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
