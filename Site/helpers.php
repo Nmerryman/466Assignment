@@ -21,17 +21,39 @@ function print_table($arr) {
 
     echo "<table><tr>";
     foreach(array_keys($arr[0]) as $headings) {
-        echo "<td><strong>$headings</strong></td>";
+        echo "<th>$headings</th>";
     }
     echo "</tr>";
-    
+
     foreach($arr as $row) {
-        echo "<tr>";
+        echo "<tr class=\"item\">";
         foreach($row as $col) {
             echo "<td>$col</td>";
         }
         echo "</tr>";
     }
     echo "</table>";
+}
+
+function print_sortable_table($arr) {
+    // Turns a passed query into a html table
+    // Assumes content is there
+
+    $chosen_id = uniqid();
+    echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
+    foreach(array_keys($arr[0]) as $headings) {
+        echo "<th>$headings</th>";
+    }
+    echo "</tr>";
+
+    foreach($arr as $row) {
+        echo "<tr class=\"item\">";
+        foreach($row as $col) {
+            echo "<td>$col</td>";
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+    echo "<script> var newTableObject = document.getElementById(\"$chosen_id\");sorttable.makeSortable(newTableObject);</script>";
 }
 ?>
