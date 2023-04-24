@@ -29,12 +29,12 @@
                         border-radius: 5px;
                         text-decoration: none;
                         color: #fff;
-                        background-color: #007bff;
+                        background-color: #4CAF50;
                         transition: background-color 0.3s ease;
                 }
 
                 .button:hover {
-                        background-color: #0062cc;
+                        background-color: #047c00;
                 }
 
                 .switch {
@@ -74,48 +74,15 @@
                 }
 
                 input:checked + .slider {
-                        background-color: #2196F3;
+                        background-color: #4CAF50;
                 }
 
                 input:focus + .slider {
-                        box-shadow: 0 0 1px #2196F3;
+                        box-shadow: 0 0 1px #4CAF50;
  		}
 
                 input:checked + .slider:before {
                         transform: translateX(26px);
-                }
-
-                .dark-mode {
-                        background-color: #333;
-                        color: #fff;
-                }
-
-                .dark-mode .container {
-                        background-color: #444;
-                }
-
-                .dark-mode .button {
-                        background-color: #333;
-                }
-
-                .dark-mode .button:hover {
-                        background-color: #222;
-                }
-
-                .dark-mode .slider {
-                        background-color: #999;
-                }
-
-                .dark-mode input:checked + .slider {
-                        background-color: #7abcf9;
-                }
-
-                .dark-mode input:focus + .slider {
-                        box-shadow: 0 0 1px #7abcf9;
-                }
-
-                .dark-mode input:checked + .slider:before {
-                        background-color: #333;
                 }
         </style>
 </head>
@@ -125,14 +92,7 @@
                 <a class="button" href="Site/dj.html">I'm a dj</a>
                 <br>
                 <a class="button" href="Site/admin.html">I'm an admin</a>
-                <button class="button dark" onclick="toggleDarkMode()">Dark Mode</button>
         </div>
-
-        <script>
-                function toggleDarkMode() {
-                        document.body.classList.toggle('dark-mode');
-                }
-        </script>
 </body>
 </html>
 
