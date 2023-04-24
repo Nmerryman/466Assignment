@@ -12,10 +12,14 @@ function fetcher(call_name, target_id, argument=[]) {
     target.innerText = "Working";
     xhttp.onload = function() {
         target.innerText = "";
-        var part = document.createElement("div");
+        var part = document.createElement("part");
         part.innerHTML = xhttp.responseText;
         target.appendChild(part);
+        // Run any script tags
+        for (a of target.getElementsByTagName("script")) {
+            eval(a.innerHTML);
+        }
     }
     xhttp.send();
-    console.log("a:" + arg_mod);
+    
 }
