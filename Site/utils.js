@@ -1,6 +1,6 @@
 
 // "Opens" the page in the background and inserts html into main document node/tag/id
-function fetcher(call_name, target_id, argument=[]) {
+function fetcher(call_name, target_id, argument=[], callback=() => {/* do nothing */}) {
     var xhttp = new XMLHttpRequest;
     // Passes arguments where it makes sense
     var arg_mod = ""
@@ -24,6 +24,7 @@ function fetcher(call_name, target_id, argument=[]) {
         for (a of target.getElementsByTagName("script")) {
             eval(a.innerHTML);
         }
+        callback();
     }
     xhttp.send();
     
