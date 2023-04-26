@@ -113,5 +113,30 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+} else if (isset($_GET["request_id"])) {  // Print all songs in the priority queue
+    try {
+        $id = $_GET["arg0"];
+        $statement = $pdo->prepare("UPDATE RequestQueue SET QueueType = \"history\", Played=1 where QueueType=\"playing\";");
+        $statement->execute();
+
+        $statement = $pdo->prepare("UPDATE RequestQueue set QueueType = \"playing\" where RequestID = ?;");
+        $statement->execute([$id]);
+        
+        echo "<h3>Playing Song</h3>";
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["get_playing"])) {  // Print all songs in the priority queue
+    try {
+        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
+        JOIN Songs s on s.SongID = r.SongID
+        JOIN Users u on u.UserID = r.UserID
+        WHERE r.QueueType = \"playing\";");
+        $statement->execute();
+        
+        echo "<h3>Playing Song</h3>";
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
 }
 ?>
