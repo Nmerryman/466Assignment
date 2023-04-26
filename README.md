@@ -14,4 +14,4 @@
 - Make it
 - Test it
 
-[Link to website](https://students.cs.niu.edu/~z1963771/466Assignment/index.php)
+[Link to website](https://students.cs.niu.edu/~z1963771/466Assignment/index.html)

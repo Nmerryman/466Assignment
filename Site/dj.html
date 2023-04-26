@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="styles.css" rel="stylesheet">
+	<title> Hi </title>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+</head>
+<body>
+    <h5>Welcome Dj!</h5>
+
+    <h2>Now Playing</h2>
+    <span id="now_playing"></span>
+
+    <br>
+    <h3>Free Queue</h3>
+    <span id="free_queue_loc"></span>
+    <br>
+    <br>
+    <h3>Priority Queue</h3>
+    <span id="paid_queue_loc"></span>
+    <br>
+    <br>
+    <h3>Next song</h3>
+    <form>
+        <label for="move_song">Play now</label>
+        <input id="move_song" name="request_id">
+        <input type="button" value="Play" onclick="play_next();">
+    </form>
+    <span id="move_res"></span>
+
+
+    <script src="utils.js"></script>
+    <script>
+        function play_next() {
+            fetcher("request_id", "move_res", [document.getElementById("move_song").value], reload_tables);
+        }
+
+        function reload_tables() {    
+            fetcher("free_queue", "free_queue_loc");
+            fetcher("paid_queue", "paid_queue_loc");
+            fetcher("get_playing", "now_playing");
+        }
+
+        reload_tables();
+    </script>
+</body>
+</html>
