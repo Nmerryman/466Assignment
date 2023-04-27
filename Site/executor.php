@@ -144,5 +144,25 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+} else if (isset($_GET["user_login_options"])) {  // Print all songs in the priority queue
+    try {
+        $statement = $pdo->prepare("SELECT UserID, Name FROM Users");
+        $statement->execute();
+        
+        $data = $statement->fetchAll();
+        if (!empty($data)) {
+            echo "<select id=\"user_select\">";
+            foreach($data as $part) {
+                $id = $part["UserID"];
+                $name = $part["Name"];
+                echo "<option value=\"$id\">$name</option>";
+            }
+            echo "</select>";
+        } else {
+            echo "<h2>No Users found</h2>";
+        }
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
 }
 ?>
