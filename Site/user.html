@@ -5,6 +5,7 @@
 	<title> Hi </title>
 </head>
 <body>
+    <span id="current_login"></span>
     <h5>Welcome User!</h5>
     <label for="query_text">Query</label>
     <input name="query_text" id="input_text">
@@ -25,6 +26,7 @@
 
     <script src="utils.js"></script>
     <script>
+        show_current_login();
         fetcher("basic_query", "text");
 
         function user_query() {
