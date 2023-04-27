@@ -83,7 +83,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     echo "<h2>text</h2><script>alert(1);</script>";
 } else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"free\";");
@@ -99,7 +99,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"priority\";");
@@ -128,13 +128,19 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["get_playing"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT s.Title, u.Name as \"Singer\" FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"playing\";");
         $statement->execute();
         
         echo "<h3>Playing Song</h3>";
+        $now_playing = $statement->fetchAll();
+        if (!empty($now_playing)) {
+            print_table($now_playing);
+        } else {
+            echo "<h2>No song playing</h2>";
+        }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
