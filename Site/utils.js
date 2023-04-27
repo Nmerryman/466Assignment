@@ -48,3 +48,34 @@ function getCookie(cname) {
   }
   return "";
 }
+
+function show_current_login() {
+    var e = document.getElementById("current_login");
+    var login_button = document.createElement("input")
+    login_button.setAttribute("type", "button");
+    login_button.setAttribute("value", "Login");
+    login_button.setAttribute("onclick", "to_login()");
+    var logout_button = document.createElement("input")
+    logout_button.setAttribute("type", "button");
+    logout_button.setAttribute("value", "Logout");
+    logout_button.setAttribute("onclick", "delete_cookies()");
+    if (getCookie("uid")) {
+        e.innerHTML = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
+    } else {
+        e.innerHTML = "Not logged in";
+    }
+    e.appendChild(login_button);
+    e.appendChild(logout_button);
+}
+
+function delete_cookies() {
+    setCookie("uid", "");
+    setCookie("uname", "");
+    setCookie("prev_page", "");
+    show_current_login();
+}
+
+function to_login() {
+    setCookie("prev_page", window.location.href);
+    window.location.href = "https://students.cs.niu.edu/~z1963771/466Assignment/Site/login.html";
+}
