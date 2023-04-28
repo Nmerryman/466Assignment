@@ -51,21 +51,19 @@ function getCookie(cname) {
 
 function show_current_login() {
     var e = document.getElementById("current_login");
-    var login_button = document.createElement("input")
-    login_button.setAttribute("type", "button");
-    login_button.setAttribute("value", "Login");
-    login_button.setAttribute("onclick", "to_login()");
-    var logout_button = document.createElement("input")
-    logout_button.setAttribute("type", "button");
-    logout_button.setAttribute("value", "Logout");
-    logout_button.setAttribute("onclick", "delete_cookies()");
+    var header = document.createElement("template");
+    var skeleton = `
+    <div class="nav_header">
+      <input type="button" value="Login" onclick="to_login()">
+      <input type="button" value="Logout" onclick="delete_cookies()">
+    </div>`;
+    header.innerHTML = skeleton.trim();
     if (getCookie("uid")) {
-        e.innerHTML = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
+      e.innerHTML = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
     } else {
-        e.innerHTML = "Not logged in";
+      e.innerHTML = "Not logged in";
     }
-    e.appendChild(login_button);
-    e.appendChild(logout_button);
+    e.appendChild(header.content.firstChild);
 }
 
 function delete_cookies() {
