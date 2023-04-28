@@ -51,6 +51,9 @@ function getCookie(cname) {
 
 function show_current_login() {
     var e = document.getElementById("nav_area");
+    if (!e) {
+      return;
+    }
     e.innerHTML = "";
 
     var login_state;

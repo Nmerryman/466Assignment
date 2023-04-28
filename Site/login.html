@@ -5,7 +5,6 @@
 	<title> Hi </title>
 </head>
 <body>
-    <span id="current_login"></span>
     <h5>Please Log in</h5>
     <span id="User_selection"></span>
     <input type="button" onclick="login()" value="Select">
@@ -18,20 +17,12 @@
             var e = document.getElementById("user_select");
             setCookie("uid", e.value);
             setCookie("uname", e.options[e.selectedIndex].text);
-            show_current_login();
             var prev = getCookie("prev_page");
             if (prev) {
                 window.location.href = prev;
             }
         }
 
-        // function set_head() {
-        //     var e = document.getElementById("current_login");
-        //     e.innerText = getCookie("uname") + "(" + getCookie("uid") + ")";
-        // }
-        
-        // set_head();
-        show_current_login();
     </script>
 </body>
 </html>
