@@ -51,18 +51,30 @@ function getCookie(cname) {
 
 function show_current_login() {
     var e = document.getElementById("current_login");
+
+    var login_state;
+    if (getCookie("uid")) {
+      login_state = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
+    } else {
+      login_state = "Not logged in";
+    }
+
     var header = document.createElement("template");
     var skeleton = `
     <div class="nav_header">
-      <input type="button" value="Login" onclick="to_login()">
-      <input type="button" value="Logout" onclick="delete_cookies()">
+      <div class="site_links">
+      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/index.html">Home</a>
+      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/user.html">Request Songs</a>
+      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/dj.html">DJ Interface</a>
+      </div>
+      <div class="login_buttons">
+        ${login_state}
+        <input type="button" value="Login" onclick="to_login()">
+        <input type="button" value="Logout" onclick="delete_cookies()">
+      </div>
     </div>`;
     header.innerHTML = skeleton.trim();
-    if (getCookie("uid")) {
-      e.innerHTML = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
-    } else {
-      e.innerHTML = "Not logged in";
-    }
+    
     e.appendChild(header.content.firstChild);
 }
 
