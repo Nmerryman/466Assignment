@@ -50,7 +50,8 @@ function getCookie(cname) {
 }
 
 function show_current_login() {
-    var e = document.getElementById("current_login");
+    var e = document.getElementById("nav_area");
+    e.innerHTML = "";
 
     var login_state;
     if (getCookie("uid")) {
