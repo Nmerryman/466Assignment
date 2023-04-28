@@ -66,15 +66,15 @@ function show_current_login() {
     var header = document.createElement("template");
     var skeleton = `
     <div class="nav_header">
-      <div class="site_links">
-      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/index.html">Home</a>
-      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/user.html">Request Songs</a>
-      <a href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/dj.html">DJ Interface</a>
+      <div id="link_div">
+      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/index.html">Home Page</a>
+      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/user.html">Request Songs</a>
+      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/dj.html">DJ Interface</a>
       </div>
-      <div class="login_buttons">
+      <div id="login_div">
         ${login_state}
-        <input type="button" value="Login" onclick="to_login()">
-        <input type="button" value="Logout" onclick="delete_cookies()">
+        <input class="nav_button" type="button" value="Login" onclick="to_login()">
+        <input class="nav_button" type="button" value="Logout" onclick="delete_cookies()">
       </div>
     </div>`;
     header.innerHTML = skeleton.trim();
