@@ -1,17 +1,6 @@
 # 466Assignment
 
 ### Todo
-##### Database Design
-- Finish er diagram
-- Normalize the schema
+- Basically just go through the issues
 
-##### SQL
-- Schema generation
-- Data generation
-
-##### Website
-- Design layout
-- Make it
-- Test it
-
-[Link to website](https://students.cs.niu.edu/~z1963771/466Assignment/index.html)
+[Link to website](https://students.cs.niu.edu/~z1963771/466Assignment/Site/index.html)
