@@ -61,7 +61,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 } else if (isset($_GET["user_send_queue"])) {  // Send a song to the request queue
     $song_id = $_GET["arg0"];
     $val = $_GET["arg1"];
-    $username = $_GET["arg2"];
+    $uid = $_GET["arg2"];
     $time = date('Y-m-d H:i:s');
     // echo "aoeu";
     // echo $val;
@@ -73,7 +73,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
     try {
         $statement = $pdo->prepare("INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
-        $statement->execute([$song_id, $username, $time, $val, $queue_type]);
+        $statement->execute([$song_id, $uid, $time, $val, $queue_type]);
         $values = $statement->fetchAll();
         echo "<p>Sent to queue</p>";
     } catch (Exception $e) {
