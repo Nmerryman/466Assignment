@@ -47,7 +47,7 @@ function print_sortable_table($arr, $chosen_id="") {
         echo "<th>$headings</th>";
     }
     echo "</tr>";
-    // print_r($arr);
+    
     foreach($arr as $y => $row) {
         echo "<tr class=\"item\">";
         $x = 0;
