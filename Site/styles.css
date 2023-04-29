@@ -70,6 +70,22 @@ a.button:hover {
     background-color: #3e8e41;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1pt solid black;
+}
+
+th {
+    background-color: #4b4b4b;
+}
+
+td {
+    padding: 1%;
+}
+
 input[type="button"]:hover {
     background-color: #3e8e41;
 }
