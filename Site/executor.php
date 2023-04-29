@@ -42,13 +42,14 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 } else if (isset($_GET["user_query_name"])) {  // Search by a name of some sort
     $name = $_GET["arg0"];
     try {
+        $soft = "%$name%";
         $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
         FROM Songs s
         JOIN SongContributors sc ON s.SongID = sc.SongID
         JOIN Contributors c ON sc.ContributorID = c.ContributorID
-        WHERE SOUNDEX(s.Title) = SOUNDEX(\"$name\") or SOUNDEX(s.BANDName) = SOUNDEX(\"$name\") or LOWER(c.Name) like \"%$name%\"
+        WHERE LOWER(s.Title) like ? or LOWER(s.BANDName) like ? or LOWER(c.Name) like ?
         GROUP BY s.SongID;");
-        $statement->execute();
+        $statement->execute([$soft, $soft, $soft]);
         $values = $statement->fetchAll();
         if (!empty($values)) {
             print_table($values);
