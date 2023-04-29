@@ -146,5 +146,18 @@ INSERT INTO Users (Name) VALUES
 
 
 
+INSERT INTO SongVersions (SongID, FileName, Description)
+SELECT s.SongID, f.FileName, f.Description
+FROM (
+  SELECT DISTINCT SongID
+  FROM Songs
+) s
+CROSS JOIN (
+  SELECT 'solo_version.mp3' AS FileName, 'Solo Version' AS Description
+  UNION ALL
+  SELECT 'duet_version.mp3' AS FileName, 'Duet Version' AS Description
+) f;
+
+
 
 
