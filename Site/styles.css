@@ -82,6 +82,10 @@ th {
     background-color: #4b4b4b;
 }
 
+td {
+    padding: 1%;
+}
+
 input[type="button"]:hover {
     background-color: #3e8e41;
 }
