@@ -165,5 +165,12 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
+} else if (isset($_GET["basic_error"])) {  // Print all songs in the priority queue
+    try {
+        $val = $_GET['arg0'];
+        echo "Error: $val";
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
 }
 ?>
