@@ -7,7 +7,7 @@ INSERT INTO Songs (Title, BandName) VALUES
 ('Thnks Fr th Mmrs', 'Fall Out Boy'),
 ('Flowers', 'Miley Cyrus'),
 ('Kill Bill', 'SZA'),
-('Love Again', 'The Kid LARIO'),
+('Love Again', 'The Kid LAROI'),
 ('Gossip', 'Maneskin'),
 ('Im not here to make friends', 'Sam Smith'),
 ('Giddy Up', 'Shania Twain'),
