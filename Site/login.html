@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="styles.css" rel="stylesheet">
+	<title> Hi </title>
+</head>
+<body>
+    <h5>Please Log in</h5>
+    <span id="User_selection"></span>
+    <input type="button" onclick="login()" value="Select">
+
+    <script src="utils.js"></script>
+    <script>
+        fetcher("user_login_options", "User_selection")
+
+        function login() {
+            var e = document.getElementById("user_select");
+            setCookie("uid", e.value);
+            setCookie("uname", e.options[e.selectedIndex].text);
+            var prev = getCookie("prev_page");
+            if (prev) {
+                window.location.href = prev;
+            }
+        }
+
+    </script>
+</body>
+</html>

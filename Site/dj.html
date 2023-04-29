@@ -6,6 +6,7 @@
     <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 </head>
 <body>
+    <div id="nav_area"></div>
     <h5>Welcome Dj!</h5>
 
     <h2>Now Playing</h2>
@@ -31,6 +32,9 @@
 
     <script src="utils.js"></script>
     <script>
+        function test() {
+            alert(1);
+        }
         function play_next() {
             fetcher("request_id", "move_res", [document.getElementById("move_song").value], reload_tables);
         }
@@ -42,6 +46,7 @@
         }
 
         reload_tables();
+        show_current_login();
     </script>
 </body>
 </html>

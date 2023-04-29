@@ -5,6 +5,7 @@
 	<title> Hi </title>
 </head>
 <body>
+    <div id="nav_area"></div>
     <h5>Welcome User!</h5>
     <label for="query_text">Query</label>
     <input name="query_text" id="input_text">
@@ -13,8 +14,6 @@
     <span id="text"></span>
 
     <br>
-    <label for="username">User ID</label>
-    <input id="username">
     <br>
     <label for="queue_id">Song ID</label>
     <input type="number" id="queue_id">
@@ -25,6 +24,7 @@
 
     <script src="utils.js"></script>
     <script>
+        show_current_login();
         fetcher("basic_query", "text");
 
         function user_query() {
@@ -45,11 +45,12 @@
         );
 
         function add_to_queue() {
+
             id = document.getElementById("queue_id").value;
             val = document.getElementById("queue_money").value;
-            user_name = document.getElementById("username").value;
+            uid = getCookie("uid");
             if (id != "") {
-                fetcher("user_send_queue", "send_status", [id, val, user_name]);
+                fetcher("user_send_queue", "send_status", [id, val, uid]);
             }
         }
     </script>
