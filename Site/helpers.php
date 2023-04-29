@@ -2,7 +2,6 @@
 // Loads the database and creates the pdo object
 include("cred.php"); 
 $host = "courses";
-$dbname = "z1963771";
 $dsn = "mysql:host=$host;dbname=$dbname";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
