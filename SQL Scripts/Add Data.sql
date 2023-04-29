@@ -52,7 +52,7 @@ VALUES
 ('SZA'),
 ('Solana Rowe'),
 ('Carter Lang'),
-('The Kid LARIO'),
+('The Kid LAROI'),
 ('Charlton Howard'),
 ('Omer Fedi'),
 ('Maneskin'),
