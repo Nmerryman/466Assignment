@@ -35,21 +35,25 @@ function print_table($arr) {
     echo "</table>";
 }
 
-function print_sortable_table($arr) {
+function print_sortable_table($arr, $chosen_id="") {
     // Turns a passed query into a html table
     // Assumes content is there
 
-    $chosen_id = uniqid();
+    if ($chosen_id == "") {
+        $chosen_id = uniqid();
+    }
     echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
     foreach(array_keys($arr[0]) as $headings) {
         echo "<th>$headings</th>";
     }
     echo "</tr>";
-
-    foreach($arr as $row) {
+    // print_r($arr);
+    foreach($arr as $y => $row) {
         echo "<tr class=\"item\">";
+        $x = 0;
         foreach($row as $col) {
-            echo "<td>$col</td>";
+            echo "<td class=\"row$y col$x\">$col</td>";
+            $x++;
         }
         echo "</tr>";
     }
