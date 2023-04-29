@@ -65,7 +65,7 @@ VALUES
 ('Fred Again'),
 ('Alessandra Mele'),
 ('Ed Sheeran'),
-('Fred'),
+('Fred again'),
 ('Oliver Tree'),
 ('Olajide Olatunji'),
 ('Digital Farm Animals'),
