@@ -11,6 +11,8 @@
     <label for="query_text">Query</label>
     <input name="query_text" id="input_text">
     <input type="button" value="Run" onclick="user_query()">
+
+    <input type="button" value="test" onclick="get_song_id()">
     <br>
     <div id="text"></div>
 
@@ -55,6 +57,11 @@
             } else if (id == "") {
                 fetcher("basic_error", "send_status", ["Must provide Song ID"]);
             }
+        }
+
+        function get_song_id() {
+            var temp = get_t_row();
+            console.log(temp[0].innerText);
         }
     </script>
 </body>

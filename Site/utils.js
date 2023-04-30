@@ -96,7 +96,24 @@ function to_login() {
 
 function select_t_row(tid, row_num) {
     var rules = document.styleSheets[0]
-    console.log(row_num);
-    rules.insertRule(`#text part table tbody tr td.row${row_num} {background: blue;}`)
-    console.log(document.styleSheets);
+    for (var i = 0; i < rules.cssRules.length; i++) {
+        if (rules.cssRules[i].selectorText.startsWith(`#${tid} tbody tr td.row`, 0)) {
+            rules.deleteRule(i);
+        }
+    }
+    // console.log(rules.cssRules[0].selectorText.startsWith(`#${tid} tbody tr td.row`));
+    rules.insertRule(`#${tid} tbody tr td.row${row_num} {background: blue;}`)
+    selected = [tid, row_num];
+    // console.log(document.styleSheets);
+}
+
+function get_t_row() {
+    var temp = document.getElementById(selected[0]);
+    var options = temp.childNodes[1].childNodes;
+    for (var i = 0; i < options.length; i++) {
+        // console.log(options[i].childNodes[0].className, options[i].childNodes[0].className.startsWith(`row${selected[1]}`));
+        if (options[i].childNodes[0].className.startsWith(`row${selected[1]}`)) {
+            return options[i].childNodes;
+        }
+    }
 }

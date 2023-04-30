@@ -39,7 +39,7 @@ function print_sortable_table($arr, $chosen_id="") {
     // Assumes content is there
 
     if ($chosen_id == "") {
-        $chosen_id = uniqid();
+        $chosen_id = "t" + uniqid();
     }
     echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
     foreach(array_keys($arr[0]) as $headings) {
@@ -65,7 +65,7 @@ function print_selectable_table($arr, $chosen_id="") {
     // Assumes content is there
 
     if ($chosen_id == "") {
-        $chosen_id = uniqid();
+        $chosen_id = "t" . uniqid();
     }
     echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
     foreach(array_keys($arr[0]) as $headings) {
