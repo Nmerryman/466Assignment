@@ -124,3 +124,9 @@ input.nav_button {
     display: inline-grid;
     justify-items: right;
 }
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
