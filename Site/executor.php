@@ -84,10 +84,12 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     echo "<h2>text</h2><script>alert(1);</script>";
 } else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
-        JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"free\";");
+        $statement = $pdo->prepare("SELECT RequestQueue.RequestID, Songs.Title, Songs.BandName, Users.Name AS RequestedBy, RequestQueue.Time
+        FROM RequestQueue
+        INNER JOIN Songs ON RequestQueue.SongID = Songs.SongID
+        INNER JOIN Users ON RequestQueue.UserID = Users.UserID
+        WHERE RequestQueue.QueueType = 'free'
+        ORDER BY RequestQueue.RequestID;");
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
@@ -100,10 +102,12 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
-        JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"priority\";");
+        $statement = $pdo->prepare("SELECT RequestQueue.RequestID, Songs.Title, Songs.BandName, Users.Name AS RequestedBy, RequestQueue.AmountPaid, RequestQueue.Time
+        FROM RequestQueue
+        INNER JOIN Songs ON RequestQueue.SongID = Songs.SongID
+        INNER JOIN Users ON RequestQueue.UserID = Users.UserID
+        WHERE RequestQueue.QueueType = 'priority'
+        ORDER BY RequestID;");
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
@@ -129,10 +133,12 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["get_playing"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name as \"Singer\" FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
-        JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"playing\";");
+        $statement = $pdo->prepare("SELECT RequestQueue.RequestID, Songs.Title, Songs.BandName, Users.Name AS RequestedBy, RequestQueue.AmountPaid, RequestQueue.Time
+        FROM RequestQueue
+        INNER JOIN Songs ON RequestQueue.SongID = Songs.SongID
+        INNER JOIN Users ON RequestQueue.UserID = Users.UserID
+        WHERE RequestQueue.QueueType = 'playing'
+        ORDER BY RequestID;");
         $statement->execute();
         
         echo "<h3>Playing Song</h3>";

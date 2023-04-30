@@ -216,6 +216,7 @@ CROSS JOIN (
 ) f;
 
 INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES
+(22, 10, NOW(), 0, 0, 'playing');
 (1, 1, NOW(), 0, 0, 'free'),
 (30, 2, NOW(), 0, 0, 'free'),
 (2, 3, NOW(), 0, 0, 'free'),
@@ -226,6 +227,6 @@ INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) V
 (27, 8, NOW(), 60.00, 0, 'priority'),
 (3, 9, NOW(), 4.28, 0, 'priority'),
 (6, 10, NOW(), 5.08, 0, 'priority'),
-(22, 10, NOW(), 0, 0, 'playing');
+
 
 
