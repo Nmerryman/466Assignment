@@ -73,7 +73,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $queue_type = "priority";
     }
     try {
-        $statement = $pdo->prepare("INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
+        $statement = $pdo->prepare("INSERT INTO RequestQueue (VersionID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
         $statement->execute([$song_id, $uid, $time, $val, $queue_type]);
         $values = $statement->fetchAll();
         echo "<p>Sent to queue</p>";
@@ -85,7 +85,8 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 } else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
         $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"free\";");
         $statement->execute();
@@ -101,7 +102,8 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 } else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
         $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"priority\";");
         $statement->execute();
@@ -130,7 +132,8 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 } else if (isset($_GET["get_playing"])) {
     try {
         $statement = $pdo->prepare("SELECT s.Title, u.Name as \"Singer\" FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
         WHERE r.QueueType = \"playing\";");
         $statement->execute();
