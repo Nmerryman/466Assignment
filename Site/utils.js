@@ -108,6 +108,9 @@ function select_t_row(tid, row_num) {
 }
 
 function get_t_row() {
+    if (selected[1] == -1) {
+        return -1;
+    }
     var temp = document.getElementById(selected[0]);
     var options = temp.childNodes[1].childNodes;
     for (var i = 0; i < options.length; i++) {

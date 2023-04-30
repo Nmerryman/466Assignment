@@ -114,7 +114,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["request_id"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["request_id"])) {
     try {
         $id = $_GET["arg0"];
         $statement = $pdo->prepare("UPDATE RequestQueue SET QueueType = \"history\", Played=1 where QueueType=\"playing\";");
@@ -127,7 +127,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["get_playing"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["get_playing"])) {
     try {
         $statement = $pdo->prepare("SELECT s.Title, u.Name as \"Singer\" FROM RequestQueue r
         JOIN Songs s on s.SongID = r.SongID
@@ -135,7 +135,6 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         WHERE r.QueueType = \"playing\";");
         $statement->execute();
         
-        echo "<h3>Playing Song</h3>";
         $now_playing = $statement->fetchAll();
         if (!empty($now_playing)) {
             print_table($now_playing);
@@ -145,7 +144,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["user_login_options"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["user_login_options"])) {
     try {
         $statement = $pdo->prepare("SELECT UserID, Name FROM Users");
         $statement->execute();
@@ -165,10 +164,27 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["basic_error"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["basic_error"])) {
     try {
         $val = $_GET['arg0'];
         echo "Error: $val";
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["get_song_versions"])) {
+    try {
+        $id = $_GET["arg0"];
+        $statement = $pdo->prepare("SELECT VersionID, Description, FileName
+        FROM SongVersions
+        WHERE \"$id\" = SongID;");
+        $statement->execute();
+        
+        $now_playing = $statement->fetchAll();
+        if (!empty($now_playing)) {
+            print_selectable_table($now_playing);
+        } else {
+            echo "<h2>No files found!->$id</h2>";
+        }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
