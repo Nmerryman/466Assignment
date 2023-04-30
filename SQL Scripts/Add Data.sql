@@ -226,6 +226,6 @@ INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) V
 (27, 8, NOW(), 60.00, 0, 'priority'),
 (3, 9, NOW(), 4.28, 0, 'priority'),
 (6, 10, NOW(), 5.08, 0, 'priority'),
-(6, 10, NOW(), 0, 0, 'playing');
+(22, 10, NOW(), 0, 0, 'playing');
 
 
