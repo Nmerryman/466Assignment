@@ -29,7 +29,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 
 } else if (isset($_GET["basic_query"])) {  // Print all songs in database
     try {
-        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName as \"Band Name\", GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
+        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName as \"Band Name\", GROUP_CONCAT(CONCAT(c.Name, ' (', sc.Role, ')') SEPARATOR '<br>') AS Contributors
         FROM Songs s
         LEFT JOIN SongContributors sc ON s.SongID = sc.SongID
         LEFT JOIN Contributors c ON sc.ContributorID = c.ContributorID
@@ -43,7 +43,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     $name = $_GET["arg0"];
     try {
         $soft = "%$name%";
-        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(CONCAT(c.Name, ' (', sc.Role, ')') SEPARATOR '<br>') AS Contributors
+        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName AS \"Band Name\", GROUP_CONCAT(CONCAT(c.Name, ' (', sc.Role, ')') SEPARATOR '<br>') AS Contributors
         FROM Songs s
         JOIN SongContributors sc ON s.SongID = sc.SongID
         JOIN Contributors c ON sc.ContributorID = c.ContributorID
