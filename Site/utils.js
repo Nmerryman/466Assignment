@@ -94,10 +94,13 @@ function to_login() {
     window.location.href = "https://students.cs.niu.edu/~z1963771/466Assignment/Site/login.html";
 }
 
-function select_t_row(tid, row_num) {
+function select_t_row(tid, row_num, reset_prev=false) {
     var rules = document.styleSheets[0]
     for (var i = 0; i < rules.cssRules.length; i++) {
         if (rules.cssRules[i].selectorText.startsWith(`#${tid} tbody tr td.row`, 0)) {
+            rules.deleteRule(i);
+        }
+        if (reset_prev && rules.cssRules[i].selectorText.startsWith(`#${selected[0]} tbody tr td.row`, 0)) {
             rules.deleteRule(i);
         }
     }

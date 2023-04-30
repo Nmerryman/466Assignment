@@ -60,7 +60,7 @@ function print_sortable_table($arr, $chosen_id="") {
     echo "<script> var newTableObject = document.getElementById(\"$chosen_id\");sorttable.makeSortable(newTableObject);</script>";
 }
 
-function print_selectable_table($arr, $chosen_id="") {
+function print_selectable_table($arr, $chosen_id="", $reset_prev_selection="false") {
     // Turns a passed query into a html table
     // Assumes content is there
 
@@ -77,7 +77,7 @@ function print_selectable_table($arr, $chosen_id="") {
         echo "<tr class=\"item\">";
         $x = 0;
         foreach($row as $col) {
-            echo "<td class=\"row$y col$x\" onclick=\"select_t_row('$chosen_id', $y)\">$col</td>";
+            echo "<td class=\"row$y col$x\" onclick=\"select_t_row('$chosen_id', $y, $reset_prev_selection)\">$col</td>";
             $x++;
         }
         echo "</tr>";
