@@ -221,10 +221,11 @@ INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) V
 (2, 3, NOW(), 0, 0, 'free'),
 (9, 4, NOW(), 0, 0, 'free'),
 (21, 5, NOW(), 0, 0, 'free'),
-(18, 6, NOW(), 0, 0, 'priority'),
-(4, 7, NOW(), 0, 0, 'priority'),
-(27, 8, NOW(), 0, 0, 'priority'),
-(3, 9, NOW(), 0, 0, 'priority'),
-(6, 10, NOW(), 0, 0, 'priority');
+(18, 6, NOW(), 10.00, 0, 'priority'),
+(4, 7, NOW(), 5.00, 0, 'priority'),
+(27, 8, NOW(), 60.00, 0, 'priority'),
+(3, 9, NOW(), 4.28, 0, 'priority'),
+(6, 10, NOW(), 5.08, 0, 'priority'),
+(6, 10, NOW(), 0, 0, 'playing');
 
 
