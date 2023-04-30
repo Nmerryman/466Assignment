@@ -31,51 +31,51 @@ function fetcher(call_name, target_id, argument=[], callback=() => {/* do nothin
 }
 
 function setCookie(cname, cvalue) {
-  document.cookie = cname + "=" + cvalue + ";";
+    document.cookie = cname + "=" + cvalue + ";";
 }
 
 function getCookie(cname) {
-  let name = cname + "=";
-  let ca = document.cookie.split(';');
-  for(let i = 0; i < ca.length; i++) {
-    let c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+        }
     }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
+    return "";
 }
 
 function show_current_login() {
     var e = document.getElementById("nav_area");
     if (!e) {
-      return;
+        return;
     }
     e.innerHTML = "";
 
     var login_state;
     if (getCookie("uid")) {
-      login_state = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
+        login_state = "Logged in as " + getCookie("uname") + "(" + getCookie("uid") + ")";
     } else {
-      login_state = "Not logged in";
+        login_state = "Not logged in";
     }
 
     var header = document.createElement("template");
     var skeleton = `
     <div class="nav_header">
-      <div id="link_div">
-      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/index.html">Home Page</a>
-      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/user.html">Request Songs</a>
-      <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/dj.html">DJ Interface</a>
-      </div>
-      <div id="login_div">
+        <div id="link_div">
+        <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/index.html">Home Page</a>
+        <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/user.html">Request Songs</a>
+        <a class="button nav_button" href="https://students.cs.niu.edu/~z1963771/466Assignment/Site/dj.html">DJ Interface</a>
+        </div>
+        <div id="login_div">
         ${login_state}
         <input class="nav_button" type="button" value="Login" onclick="to_login()">
         <input class="nav_button" type="button" value="Logout" onclick="delete_cookies()">
-      </div>
+        </div>
     </div>`;
     header.innerHTML = skeleton.trim();
     
@@ -92,4 +92,11 @@ function delete_cookies() {
 function to_login() {
     setCookie("prev_page", window.location.href);
     window.location.href = "https://students.cs.niu.edu/~z1963771/466Assignment/Site/login.html";
+}
+
+function select_t_row(tid, row_num) {
+    var rules = document.styleSheets[0]
+    console.log(row_num);
+    rules.insertRule(`#text part table tbody tr td.row${row_num} {background: blue;}`)
+    console.log(document.styleSheets);
 }

@@ -35,7 +35,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         LEFT JOIN Contributors c ON sc.ContributorID = c.ContributorID
         GROUP BY s.SongID;");
         $statement->execute();
-        print_sortable_table($statement->fetchAll());
+        print_selectable_table($statement->fetchAll());
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
@@ -52,7 +52,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $statement->execute([$soft, $soft, $soft]);
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_sortable_table($values);
+            print_selectable_table($values);
         } else {
             echo "<h3>No results for $name found.<h3>";
         }
