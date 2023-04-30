@@ -173,6 +173,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["get_song_versions"])) {
     try {
+        // Fixme injection possible
         $id = $_GET["arg0"];
         $statement = $pdo->prepare("SELECT VersionID, Description, FileName
         FROM SongVersions
@@ -182,6 +183,10 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $now_playing = $statement->fetchAll();
         if (!empty($now_playing)) {
             print_selectable_table($now_playing);
+            echo "<label for=\"queue_money\">Payment</label>
+            <input type=\"number\" value=\"0\" step=\"0.01\" min=\"0\" id=\"queue_money\">
+            <input type=\"button\" value=\"send\" onclick=\"add_to_queue()\">
+            <div id=\"send_status\"></div> ";
         } else {
             echo "<h2>No files found!->$id</h2>";
         }
