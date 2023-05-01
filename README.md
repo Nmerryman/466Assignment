@@ -19,6 +19,7 @@ Here is a basic guide to add and play a song.
 - Head over to the user `Request Songs` or `I'm a user` tab
 - click on login in the top right and choose a user
 - query for a song/artist/band in the field (all get search at once)
+- ordering of resulting rows can be changed via clicking on the table headers
 - click on the chosen row
 - click on the chosen song file version
 - choose a price, 0 for free
