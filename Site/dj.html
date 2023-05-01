@@ -33,8 +33,12 @@
         }
 
         function get_r_id() {
-            var temp = get_t_row();
-            return temp[0].innerText;
+            try{
+                var temp = get_t_row();
+                return temp[0].innerText;
+            } catch(err) {
+                return -1;
+            }
         }
 
         function play_next() {
