@@ -70,12 +70,29 @@ a.button:hover {
     background-color: #3e8e41;
 }
 
+table {
+    border-collapse: collapse;
+}
+
+tr {
+    border-bottom: 1pt solid black;
+}
+
+th {
+    background-color: #4b4b4b;
+}
+
+td {
+    padding: 1%;
+}
+
 input[type="button"]:hover {
     background-color: #3e8e41;
 }
 
 #text {
-    display: block;
+    display: flex;
+    justify-content: center;
     font-size: 1.5rem;
     margin: 2rem 0;
     color: #ffffff;
@@ -107,4 +124,20 @@ input.nav_button {
     background-color: #4b4b4b;
     display: inline-grid;
     justify-items: right;
+}
+
+span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#dj_main {
+    display: flex;
+}
+
+
+#song_ver {
+    display: flex;
+    justify-content: center;
 }

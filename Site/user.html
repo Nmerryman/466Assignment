@@ -3,6 +3,7 @@
 <head>
     <link href="styles.css" rel="stylesheet">
 	<title> Hi </title>
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
 </head>
 <body>
     <div id="nav_area"></div>
@@ -10,17 +11,11 @@
     <label for="query_text">Query</label>
     <input name="query_text" id="input_text">
     <input type="button" value="Run" onclick="user_query()">
-    <br>
-    <span id="text"></span>
 
     <br>
-    <br>
-    <label for="queue_id">Song ID</label>
-    <input type="number" id="queue_id">
-    <label for="queue_money">Payment</label>
-    <input type="number" value="0" step="0.01" min="0" id="queue_money">
-    <input type="button" value="send" onclick="add_to_queue()">
-    <span id="send_status"></span> 
+    <div id="text" onclick="get_song_id()"></div>
+
+    <div id="song_ver" onclick="get_version_id()"></div>
 
     <script src="utils.js"></script>
     <script>
@@ -28,6 +23,9 @@
         fetcher("basic_query", "text");
 
         function user_query() {
+            var predel = document.getElementById("song_ver");
+            predel.innerHTML = "";
+            selected = [0, -1];
             name = document.getElementById("input_text").value;
             if (name != "") {
                 fetcher("user_query_name", "text", [name]);
@@ -46,11 +44,30 @@
 
         function add_to_queue() {
 
-            id = document.getElementById("queue_id").value;
+            // id = document.getElementById("queue_id").value;
             val = document.getElementById("queue_money").value;
             uid = getCookie("uid");
-            if (id != "") {
-                fetcher("user_send_queue", "send_status", [id, val, uid]);
+            if (uid != "" & version_id != "") {
+                fetcher("user_send_queue", "send_status", [version_id, val, uid]);
+            } else if (uid == "") {
+                fetcher("basic_error", "send_status", ["Must log in."]);
+            } else if (id == "") {
+                fetcher("basic_error", "send_status", ["Must provide Song ID"]);
+            }
+        }
+
+        function get_song_id() {
+            var song_id = get_t_row()[0].innerText;
+            if (song_id >= 0) {
+                console.log(song_id);
+                fetcher("get_song_versions", "song_ver", [song_id]);
+            }
+        }
+
+        function get_version_id() {
+            var ver_id = get_t_row()[0].innerText;
+            if (ver_id > 0) {
+                version_id = ver_id;
             }
         }
     </script>

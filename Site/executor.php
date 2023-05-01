@@ -29,13 +29,14 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
 
 } else if (isset($_GET["basic_query"])) {  // Print all songs in database
     try {
-        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
+        $statement = $pdo->prepare("SELECT s.SongID AS \"Song ID\", s.Title AS \"Song Name\", s.BandName as \"Artist Name\", GROUP_CONCAT(CONCAT(c.Name, ' (', sc.Role, ')') SEPARATOR '<br>') AS Contributors
         FROM Songs s
         LEFT JOIN SongContributors sc ON s.SongID = sc.SongID
         LEFT JOIN Contributors c ON sc.ContributorID = c.ContributorID
         GROUP BY s.SongID;");
         $statement->execute();
-        print_table($statement->fetchAll());
+        $values = $statement->fetchAll();
+        print_selectable_table($values);
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
@@ -43,7 +44,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     $name = $_GET["arg0"];
     try {
         $soft = "%$name%";
-        $statement = $pdo->prepare("SELECT s.SongID, s.Title, s.BandName, GROUP_CONCAT(c.Name SEPARATOR ', ') AS Contributors
+        $statement = $pdo->prepare("SELECT s.SongID AS \"Song ID\", s.Title AS \"Song Name\", s.BandName AS \"Artist Name\", GROUP_CONCAT(CONCAT(c.Name, ' (', sc.Role, ')') SEPARATOR '<br>') AS Contributors
         FROM Songs s
         JOIN SongContributors sc ON s.SongID = sc.SongID
         JOIN Contributors c ON sc.ContributorID = c.ContributorID
@@ -52,7 +53,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $statement->execute([$soft, $soft, $soft]);
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_table($values);
+            print_selectable_table($values);
         } else {
             echo "<h3>No results for $name found.<h3>";
         }
@@ -73,7 +74,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $queue_type = "priority";
     }
     try {
-        $statement = $pdo->prepare("INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
+        $statement = $pdo->prepare("INSERT INTO RequestQueue (VersionID, UserID, Time, AmountPaid, Played, QueueType) VALUES (?, ?, ?, ?, 0, ?);");
         $statement->execute([$song_id, $uid, $time, $val, $queue_type]);
         $values = $statement->fetchAll();
         echo "<p>Sent to queue</p>";
@@ -84,14 +85,16 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     echo "<h2>text</h2><script>alert(1);</script>";
 } else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time' FROM RequestQueue r
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"free\";");
+        WHERE r.QueueType = \"free\"
+        ORDER BY r.RequestID;");
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_sortable_table($values);
+            print_selectable_table($values, "t" . uniqid(), "true");
         } else {
             echo "<h3>No songs in the free queue.<h3>";
         }
@@ -100,21 +103,23 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID, s.Title, u.Name, r.Time, r.AmountPaid FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid' FROM RequestQueue r
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"priority\";");
+        WHERE r.QueueType = \"priority\"
+        ORDER BY r.RequestID;");
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_sortable_table($values);
+            print_selectable_table($values, "t" . uniqid(), "true");
         } else {
             echo "<h3>No songs in the priority queue.<h3>";
         }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["request_id"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["request_id"])) {
     try {
         $id = $_GET["arg0"];
         $statement = $pdo->prepare("UPDATE RequestQueue SET QueueType = \"history\", Played=1 where QueueType=\"playing\";");
@@ -127,15 +132,16 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["get_playing"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["get_playing"])) {
     try {
-        $statement = $pdo->prepare("SELECT s.Title, u.Name as \"Singer\" FROM RequestQueue r
-        JOIN Songs s on s.SongID = r.SongID
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid' FROM RequestQueue r
+        JOIN SongVersions sv on sv.VersionID = r.VersionID
+        JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
-        WHERE r.QueueType = \"playing\";");
+        WHERE r.QueueType = \"playing\"
+        ORDER BY r.RequestID;");
         $statement->execute();
         
-        echo "<h3>Playing Song</h3>";
         $now_playing = $statement->fetchAll();
         if (!empty($now_playing)) {
             print_table($now_playing);
@@ -145,7 +151,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
-} else if (isset($_GET["user_login_options"])) {  // Print all songs in the priority queue
+} else if (isset($_GET["user_login_options"])) {
     try {
         $statement = $pdo->prepare("SELECT UserID, Name FROM Users");
         $statement->execute();
@@ -161,6 +167,35 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
             echo "</select>";
         } else {
             echo "<h2>No Users found</h2>";
+        }
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["basic_error"])) {
+    try {
+        $val = $_GET['arg0'];
+        echo "Error: $val";
+    } catch (Exception $e) {
+        echo "<h1>$e</h1>";
+    }
+} else if (isset($_GET["get_song_versions"])) {
+    try {
+        // Fixme injection possible
+        $id = $_GET["arg0"];
+        $statement = $pdo->prepare("SELECT VersionID, Description, FileName
+        FROM SongVersions
+        WHERE ? = SongID;");
+        $statement->execute([$id]);
+        
+        $now_playing = $statement->fetchAll();
+        if (!empty($now_playing)) {
+            print_selectable_table($now_playing);
+            echo "<label for=\"queue_money\">Payment</label>
+            <input type=\"number\" value=\"0\" step=\"0.01\" min=\"0\" id=\"queue_money\">
+            <input type=\"button\" value=\"send\" onclick=\"add_to_queue()\">
+            <div id=\"send_status\"></div> ";
+        } else {
+            echo "<h2>No files found!->$id</h2>";
         }
     } catch (Exception $e) {
         echo "<h1>$e</h1>";

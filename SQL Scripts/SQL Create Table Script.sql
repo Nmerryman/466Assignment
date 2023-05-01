@@ -32,13 +32,13 @@ CREATE TABLE Contributors (
 
 CREATE TABLE RequestQueue (
     RequestID INT PRIMARY KEY AUTO_INCREMENT,
-    SongID INT,
+    VersionID INT,
     UserID INT,
     Time DATETIME,
     AmountPaid DECIMAL(10,2),
     Played BIT,
     QueueType VARCHAR(255),
-    FOREIGN KEY (SongID) REFERENCES Songs(SongID),
+    FOREIGN KEY (VersionID) REFERENCES SongVersions(VersionID),
     FOREIGN KEY (UserID) REFERENCES Users(UserID)
 );
 

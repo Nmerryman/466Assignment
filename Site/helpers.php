@@ -2,7 +2,6 @@
 // Loads the database and creates the pdo object
 include("cred.php"); 
 $host = "courses";
-$dbname = "z1963771";
 $dsn = "mysql:host=$host;dbname=$dbname";
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
@@ -35,25 +34,55 @@ function print_table($arr) {
     echo "</table>";
 }
 
-function print_sortable_table($arr) {
+function print_sortable_table($arr, $chosen_id="") {
     // Turns a passed query into a html table
     // Assumes content is there
 
-    $chosen_id = uniqid();
+    if ($chosen_id == "") {
+        $chosen_id = "t" . uniqid();
+    }
     echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
     foreach(array_keys($arr[0]) as $headings) {
         echo "<th>$headings</th>";
     }
     echo "</tr>";
-
-    foreach($arr as $row) {
+    
+    foreach($arr as $y => $row) {
         echo "<tr class=\"item\">";
+        $x = 0;
         foreach($row as $col) {
-            echo "<td>$col</td>";
+            echo "<td class=\"row$y col$x\">$col</td>";
+            $x++;
         }
         echo "</tr>";
     }
     echo "</table>";
     echo "<script> var newTableObject = document.getElementById(\"$chosen_id\");sorttable.makeSortable(newTableObject);</script>";
+}
+
+function print_selectable_table($arr, $chosen_id="", $reset_prev_selection="false") {
+    // Turns a passed query into a html table
+    // Assumes content is there
+
+    if ($chosen_id == "") {
+        $chosen_id = "t" . uniqid();
+    }
+    echo "<table id=\"$chosen_id\" class=\"sortable\"><tr>";
+    foreach(array_keys($arr[0]) as $headings) {
+        echo "<th>$headings</th>";
+    }
+    echo "</tr>";
+    
+    foreach($arr as $y => $row) {
+        echo "<tr class=\"item\">";
+        $x = 0;
+        foreach($row as $col) {
+            echo "<td class=\"row$y col$x\" onclick=\"select_t_row('$chosen_id', $y, $reset_prev_selection)\">$col</td>";
+            $x++;
+        }
+        echo "</tr>";
+    }
+    echo "</table>";
+    echo "<script> var newTableObject = document.getElementById(\"$chosen_id\");sorttable.makeSortable(newTableObject);selected = [\"$chosen_id\", -1];</script>";
 }
 ?>
