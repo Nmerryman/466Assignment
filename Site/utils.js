@@ -105,7 +105,7 @@ function select_t_row(tid, row_num, reset_prev=false) {
         }
     }
     // console.log(rules.cssRules[0].selectorText.startsWith(`#${tid} tbody tr td.row`));
-    rules.insertRule(`#${tid} tbody tr td.row${row_num} {background: blue;}`)
+    rules.insertRule(`#${tid} tbody tr td.row${row_num} {background: #2C8F30;}`)
     selected = [tid, row_num];
     // console.log(document.styleSheets);
 }
