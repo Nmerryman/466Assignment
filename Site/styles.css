@@ -132,10 +132,17 @@ span {
     align-items: center;
 }
 
+#dj_right {
+    margin: 1rem;
+}
+
+#dj_left {
+    margin: 1rem;
+}
+
 #dj_main {
     display: flex;
 }
-
 
 #song_ver {
     display: flex;
