@@ -184,8 +184,8 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $id = $_GET["arg0"];
         $statement = $pdo->prepare("SELECT VersionID, Description, FileName
         FROM SongVersions
-        WHERE \"$id\" = SongID;");
-        $statement->execute();
+        WHERE ? = SongID;");
+        $statement->execute([$id]);
         
         $now_playing = $statement->fetchAll();
         if (!empty($now_playing)) {
