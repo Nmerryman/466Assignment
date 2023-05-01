@@ -92,7 +92,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_sortable_table($values);
+            print_selectable_table($values, "t" . uniqid(), "true");
         } else {
             echo "<h3>No songs in the free queue.<h3>";
         }
@@ -109,7 +109,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         $statement->execute();
         $values = $statement->fetchAll();
         if (!empty($values)) {
-            print_sortable_table($values);
+            print_selectable_table($values, "t" . uniqid(), "true");
         } else {
             echo "<h3>No songs in the priority queue.<h3>";
         }
