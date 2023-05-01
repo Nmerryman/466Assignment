@@ -9,21 +9,25 @@
     <div id="nav_area"></div>
     <h5>Welcome Dj!</h5>
 
-    <h2>Now Playing</h2>
-    <div id="now_playing"></div>
+    <div id="dj_main">
+        <div id="dj_left">
+            <h3>Free Queue</h3>
+            <div id="free_queue_loc"></div>
+            <br>
+            <br>
+            <h3>Priority Queue</h3>
+            <div id="paid_queue_loc"></div>
+        </div>
+        <div id="dj_right">
+            <h2>Now Playing</h2>
+            <div id="now_playing"></div>
+    
+            <h3>Next song</h3>
+            <input type="button" value="Play" onclick="play_next();">
+            <div id="move_res"></div>
+        </div>
+    </div>
 
-    <br>
-    <h3>Free Queue</h3>
-    <div id="free_queue_loc"></div>
-    <br>
-    <br>
-    <h3>Priority Queue</h3>
-    <div id="paid_queue_loc"></div>
-    <br>
-    <br>
-    <h3>Next song</h3>
-    <input type="button" value="Play" onclick="play_next();">
-    <div id="move_res"></div>
 
 
     <script src="utils.js"></script>

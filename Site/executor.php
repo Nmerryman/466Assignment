@@ -35,7 +35,8 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
         LEFT JOIN Contributors c ON sc.ContributorID = c.ContributorID
         GROUP BY s.SongID;");
         $statement->execute();
-        print_selectable_table($statement->fetchAll());
+        $values = $statement->fetchAll();
+        print_selectable_table($values);
     } catch (Exception $e) {
         echo "<h1>$e</h1>";
     }
