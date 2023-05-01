@@ -94,8 +94,12 @@ input[type="button"]:hover {
     display: flex;
     justify-content: center;
     font-size: 1.5rem;
-    margin: 2rem 0;
+    margin: 1rem;
     color: #ffffff;
+}
+
+#song_ver {
+    margin: 1rem;
 }
 
 a.nav_button {
@@ -147,4 +151,9 @@ span {
 #song_ver {
     display: flex;
     justify-content: center;
+}
+
+#user_main {
+    display: flex;
+    
 }
