@@ -85,7 +85,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     echo "<h2>text</h2><script>alert(1);</script>";
 } else if (isset($_GET["free_queue"])) {  // Print all songs in the free queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time' FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.VersionID as 'File ID' FROM RequestQueue r
         JOIN SongVersions sv on sv.VersionID = r.VersionID
         JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
@@ -103,7 +103,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["paid_queue"])) {  // Print all songs in the priority queue
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid' FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid', r.VersionID as 'File ID' FROM RequestQueue r
         JOIN SongVersions sv on sv.VersionID = r.VersionID
         JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
@@ -134,7 +134,7 @@ if (isset($_GET["rebuild"])){  // admin command to rebuild the whole database
     }
 } else if (isset($_GET["get_playing"])) {
     try {
-        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid' FROM RequestQueue r
+        $statement = $pdo->prepare("SELECT r.RequestID as 'Request ID', s.Title as 'Song Name', s.BandName as 'Artist Name', u.Name as 'Requested by', r.Time as 'Request Time', r.AmountPaid as 'Amount Paid', r.VersionID as 'File ID' FROM RequestQueue r
         JOIN SongVersions sv on sv.VersionID = r.VersionID
         JOIN Songs s on s.SongID = sv.SongID
         JOIN Users u on u.UserID = r.UserID
