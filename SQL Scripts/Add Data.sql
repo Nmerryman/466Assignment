@@ -215,7 +215,7 @@ CROSS JOIN (
   SELECT 'duet_version.mp3' AS FileName, 'Duet Version' AS Description
 ) f;
 
-INSERT INTO RequestQueue (SongID, UserID, Time, AmountPaid, Played, QueueType) VALUES
+INSERT INTO RequestQueue (VersionID, UserID, Time, AmountPaid, Played, QueueType) VALUES
 (22, 10, NOW(), 0, 0, 'playing');
 (1, 1, NOW(), 0, 0, 'free'),
 (30, 2, NOW(), 0, 0, 'free'),
